@@ -28,8 +28,8 @@ with tab1:
             st.success("File uploaded successfully!")
             
             # Display first few rows of the Excel file
-            st.subheader("Preview of your Excel file")
-            st.dataframe(df.head())
+            #st.subheader("Preview of your Excel file")
+           #st.dataframe(df.head())
             
             # Let user select which column contains URLs
             columns = df.columns.tolist()
