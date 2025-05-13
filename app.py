@@ -91,14 +91,30 @@ with tab1:
                         report_df = pd.DataFrame(results)
                         
                         # Filter for broken URLs
-                        if not report_df.empty:
-                            st.subheader("Broken URLs (404 errors)")
-                            broken_df = report_df[report_df["status_code"] == 404]
-                            if len(broken_df) > 0:
-                                st.dataframe(broken_df)
-                            else:
-                                st.success("No 404 errors found!")
-                            
+                        #if not report_df.empty:
+                            #st.subheader("Broken URLs (404 errors)")
+                            # broken_df = report_df[report_df["status_code"] == 404]
+                             #if len(broken_df) > 0:
+                                #st.dataframe(broken_df)
+                            # else:
+                                 #st.success("No 404 errors found!")
+                        # Display all errors (not just 404)
+                            if not report_df.empty:
+                                # First show 404 errors
+                                st.subheader("Broken URLs (404 errors)")
+                                broken_df = report_df[report_df["status_code"] == 404]
+                                if len(broken_df) > 0:
+                                    st.dataframe(broken_df)
+                                else:
+                                    st.success("No 404 errors found!")
+                                
+                                # Then show other errors
+                                st.subheader("Other Errors")
+                                other_errors_df = report_df[(report_df["status_code"] != 200) & (report_df["status_code"] != 404)]
+                                if len(other_errors_df) > 0:
+                                    st.dataframe(other_errors_df)
+                                else:
+                                    st.success("No other errors found!")
                             # Export options
                             report_excel = generate_report(report_df)
                             st.download_button(
